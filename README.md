@@ -1,8 +1,8 @@
-- `src/train.py` — обучение, MLflow‑логирование, параметры из CLI.
-- `src/inference.py` — батч‑инференс из Registry- `models:/Churn_Model/Production`.
-- `src/client.py` — REST‑клиент для `mlflow models serve`
+- `src/train.py` — обучение, MLflow‑логирование, параметры из CLI
+- `src/inference.py` — инференс из Registry- `models:/Churn_Model/Production`
+- `src/client.py` — rest‑api для `mlflow models serve`
 - `src/data_validation.py` — проверки данных перед обучением
-- `mlruns/`, `mlflow.db` — артефакты и метаданные MLflow.
+- `mlruns/`, `mlflow.db` — артефакты и метаданные MLflow
 
 ## требования
 - Python 3.10+
@@ -40,30 +40,29 @@ python -m src.train \
   --use-class-weights
 ```
 скрипт:
-- детектит категориальные/числовые признаки
-- заполняет пропуски
+- определяет категориальные/числовые признаки
+- заполняет пропуски в датасете
 - строит Pipeline
-- логирует ROC‑AUC / F1 / Accuracy и модель
+- логирует ROC‑AUC, F1, Accuracy и модель
 
-сделай 3–5 запусков с разными гиперпараметрами и сохраните скриншот UI.
+сделайте 3–5 запусков с разными гиперпараметрами
 
 ## model registry
-лучшая модель регистрируется в MLflow Registry и помечается `Production`.
-В проекте используется имя модели: `Churn_Model`
+лучшая модель регистрируется в MLflow Registry и помечается `Production`
 
 регистрация через ui:
-1. открыть лучший run.
-2. `Register model` → `Churn_Model`.
+1. открыть лучший run
+2. `Register model` → `Churn_Model`
 3. назначить стадию `Production`
 
-## batch‑инференс
+## инференс
 ```bash
 export MLFLOW_TRACKING_URI=http://127.0.0.1:5001
 python -m src.inference \
   --data-path data/raw/cell2cellholdout.csv \
   --output-path data/predictions/holdout
 ```
-результат в папке `data/predictions/holdout/part-*.csv`.
+результат в папке `data/predictions/holdout/part-*.csv`
 
 ## rest api 
 запуск сервера:
@@ -81,8 +80,8 @@ MLFLOW_TRACKING_URI=http://127.0.0.1:5001 \
 ```
 
 результат:
-- `prediction = 1.0` → churn 
-- `prediction = 0.0` → no churn 
+- `prediction = 1.0` → уйдет
+- `prediction = 0.0` → не уйдет
 
 
 
