@@ -1,0 +1,7 @@
+mlflow==2.12.1
+pyspark==3.5.1
+pandas>=2.0.0
+numpy>=1.24.0
+pyarrow>=14.0.0
+requests>=2.31.0
+gunicorn>=21.2.0
